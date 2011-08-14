@@ -96,6 +96,7 @@ update    |Pulls updates for the castle and re-symlinks it. |
 Attribute   |Description |Default value
 ------------|------------|-------------
 name        |**Name attribute:** The name of the homesick castle. |`nil`
+user        |The user using the castle. |`nil`
 source      |The clone URL (http, https, git, etc.) of the castle. |`nil`
 
 ### Examples
@@ -103,6 +104,7 @@ source      |The clone URL (http, https, git, etc.) of the castle. |`nil`
 #### Install a Castle
 
     homesick_castle 'dotvim' do
+      user    'wigglebottom
       source  'git://github.com/fnichol/dotvim.git'
     end
 
@@ -111,6 +113,7 @@ source      |The clone URL (http, https, git, etc.) of the castle. |`nil`
 #### Pull Updates for a Castle
 
     homesick_castle 'dotfiles' do
+      user    'wigglebottom
       source  'git://github.com/fnichol/dotfiles.git'
       action  :update
     end
