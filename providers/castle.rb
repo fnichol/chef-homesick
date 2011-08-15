@@ -23,7 +23,7 @@ def load_current_resource
   castle = castles.select{ |c| c[:name] == new_resource.castle }.first
   if castle
     @current_resource = Chef::Resource::HomesickCastle.new(castle[:name])
-    @current_resource.source = castle[:source]
+    @current_resource.source(castle[:source])
   else
     @current_resource = nil
   end
