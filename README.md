@@ -27,6 +27,64 @@ Please [report][issues] any additional platforms so they can be added.
 There are **no** external cookbook dependencies. If you are using [RVM][rvm],
 then you should consider using the [rvm cookbook][rvm_cb].
 
+# Installation
+
+Depending on the situation and use case there are several ways to install
+this cookbook. All the methods listed below assume a tagged version release
+is the target, but omit the tags to get the head of development. A valid
+Chef repository structure like the [Opscode repo][chef_repo] is also assumed.
+
+## From the Opscode Community Platform
+
+To install this cookbook from the Opscode platform, use the *knife* command:
+
+    knife cookbook site install homesick
+
+## Using Librarian
+
+The [Librarian][librarian] gem aims to be Bundler for your Chef cookbooks.
+Include a reference to the cookbook in a **Cheffile** and run
+`librarian-chef install`. To install with Librarian:
+
+    gem install librarian
+    cd chef-repo
+    librarian-chef init
+    cat >> Cheffile <<END_OF_CHEFFILE
+    cookbook 'homesick',
+      :git => 'git://github.com/fnichol/chef-homesick.git', :ref => 'v0.2.0'
+    END_OF_CHEFFILE
+    librarian-chef install
+
+## Using knife-github-cookbooks
+
+The [knife-github-cookbooks][kgc] gem is a plugin for *knife* that supports
+installing cookbooks directly from a GitHub repository. To install with the
+plugin:
+
+    gem install knife-github-cookbooks
+    cd chef-repo
+    knife cookbook github install fnichol/chef-homesick/v0.2.0
+
+## As a Git Submodule
+
+A common practice (which is getting dated) is to add cookbooks as Git
+submodules. This is accomplishes like so:
+
+    cd chef-repo
+    git submodule add git://github.com/fnichol/chef-homesick.git cookbooks/homesick
+    git submodule init && git submodule update
+
+**Note:** the head of development will be linked here, not a tagged release.
+
+## As a Tarball
+
+If the cookbook needs to downloaded temporarily just to be uploaded to a Chef
+Server or Opscode Hosted Chef, then a tarball installation might fit the bill:
+
+    cd chef-repo/cookbooks
+    curl -Ls https://github.com/fnichol/chef-homesick/tarball/v0.2.0 | tar xfz - && \
+      mv fnichol-chef-homesick-* homesick
+
 # Usage
 
 Simply include `recipe[homesick]` in your run_list and the `homesick_repo`
@@ -144,7 +202,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
+[chef_repo]:    https://github.com/opscode/chef-repo
 [homesick]:     https://github.com/technicalpickles/homesick
+[kgc]:          https://github.com/websterclay/knife-github-cookbooks#readme
+[librarian]:    https://github.com/applicationsonline/librarian#readme
 [rvm]:          http://rvm.beginrescueend.com
 [rvm_cb]:       https://github.com/fnichol/chef-rvm
 
