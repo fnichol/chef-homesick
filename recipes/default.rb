@@ -17,11 +17,4 @@
 # limitations under the License.
 #
 
-# install homesick gem during chef compile phase
-gem_package 'homesick' do
-  action :nothing
-end.run_action(:install)
-
-require 'rubygems'
-Gem.clear_paths
-require 'homesick'
+gem_package 'homesick'
