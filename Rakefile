@@ -1,6 +1,6 @@
 #!/usr/bin/env rake
 
-@cookbook = "openoffice"
+@cookbook = "homesick"
 
 desc "Runs foodcritc linter"
 task :foodcritic do
