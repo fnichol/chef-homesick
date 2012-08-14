@@ -66,8 +66,11 @@ def home_dir
 end
 
 def run(command)
+  env = { 'USER' => new_resource.user, 'HOME' => home_dir }
+
   execute command do
-    user  new_resource.user
+    user          new_resource.user
+    environment   env
   end
 end
 
