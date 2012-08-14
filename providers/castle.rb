@@ -65,20 +65,19 @@ def home_dir
   @home_dir ||= Pathname.new(Etc.getpwnam(new_resource.user).dir).expand_path
 end
 
-def clone
-  execute "homesick clone #{new_resource.source} --force" do
+def run(command)
+  execute command do
     user  new_resource.user
   end
 end
 
-def update
-  execute "homesick pull #{new_resource.castle} --force" do
-    user  new_resource.user
-  end
+def clone
+  run "homesick clone #{new_resource.source} --force"
+end
 
-  execute "homesick symlink #{new_resource.castle} --force" do
-    user  new_resource.user
-  end
+def update
+  run "homesick pull #{new_resource.castle} --force"
+  run "homesick symlink #{new_resource.castle} --force"
 
   # it would be great to detect if a change was actually made or not
   new_resource.updated_by_last_action(true)
