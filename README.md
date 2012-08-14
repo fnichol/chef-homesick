@@ -258,5 +258,6 @@ limitations under the License.
 [rvm]:          http://rvm.beginrescueend.com
 [rvm_cb]:       https://github.com/fnichol/chef-rvm
 
+[fnichol]:      https://github.com/fnichol
 [repo]:         https://github.com/fnichol/chef-homesick
 [issues]:       https://github.com/fnichol/chef-homesick/issues
