@@ -19,4 +19,5 @@
 # limitations under the License.
 #
 
-default['homesick']['data_bag'] = "users"
+default['homesick']['data_bag_name']        = "users"
+default['homesick']['user_array_node_attr'] = "users"

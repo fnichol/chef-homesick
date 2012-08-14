@@ -142,11 +142,20 @@ Use this recipe when you want data bag driven data in your workflow.
 
 ## <a name="attributes"></a> Attributes
 
-### <a name="attributes-data-bag"></a> data_bag
+### <a name="attributes-data-bag-name"></a> data_bag_name
 
 The data bag name containing a group of user account information. This is used
 by the `data_bag` recipe to use as a database of user accounts. The default is
 `"users"`.
+
+### <a name="attributes-user-array-node-attr"></a> user_array_node_attr
+
+The node attributes containing an array of users to be managed. If a nested
+hash in the node's attributes is required, then use a `/` between subhashes.
+For example, if the users' array is stored in `node['system']['accounts']`),
+then set `node['homesick']['user_array_node_attr']` to `"system/accounts"`.
+
+The default is `"users"`.
 
 ## <a name="lwrps"></a> Resources and Providers
 

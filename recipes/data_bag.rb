@@ -17,18 +17,22 @@
 # limitations under the License.
 #
 
-bag   = node['homesick']['data_bag']
-users = begin
-  data_bag(bag)
-rescue => ex
-  Chef::Log.info("Data bag #{bag.join('/')} not found (#{ex}), so skipping")
-  []
-end
-
 include_recipe 'homesick'
 
-Array(node['users']).each do |i|
-  u = data_bag_item(bag, i)
+bag = node['homesick']['data_bag_name']
+
+# Fetch the user array from the node's attribute hash. If a subhash is
+# desired (ex. node['base']['user_accounts']), then set:
+#
+#     node['homesick']['user_array_node_attr'] = "base/user_accounts"
+user_array = node
+node['homesick']['user_array_node_attr'].split("/").each do |hash_key|
+  user_array = user_array.send(:[], hash_key)
+end
+
+# only manage the subset of users defined
+Array(user_array).each do |i|
+  u = data_bag_item(bag, i.gsub(/[.]/, '-'))
 
   Array(u['homesick_castles']).each do |castle|
     homesick_castle castle['name'] do
