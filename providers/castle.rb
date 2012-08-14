@@ -79,4 +79,7 @@ def update
   execute "homesick symlink #{new_resource.castle} --force" do
     user  new_resource.user
   end
+
+  # it would be great to detect if a change was actually made or not
+  new_resource.updated_by_last_action(true)
 end
