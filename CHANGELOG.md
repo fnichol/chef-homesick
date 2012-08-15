@@ -1,4 +1,7 @@
-## 0.2.3 (unreleased)
+## 0.3.1 (unreleased)
+
+
+## 0.3.0 (August 15, 2012)
 
 ### Breaking changes
 
