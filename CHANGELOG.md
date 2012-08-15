@@ -1,4 +1,11 @@
-## 0.3.1 (unreleased)
+## 0.3.3 (unreleased)
+
+
+## 0.3.2 (August 15, 2012)
+
+### Bug fixes
+
+* Fix home_dir Pathname coersion to String in Ruby 1.9.x. ([@fnichol][])
 
 
 ## 0.3.0 (August 15, 2012)
