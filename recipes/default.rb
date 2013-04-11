@@ -17,4 +17,6 @@
 # limitations under the License.
 #
 
-gem_package 'homesick'
+gem_package 'homesick' do
+  version '0.7.0'
+end
