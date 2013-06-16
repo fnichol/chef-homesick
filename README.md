@@ -1,8 +1,10 @@
-# <a name="title"></a> chef-homesick [![Build Status](https://secure.travis-ci.org/fnichol/chef-homesick.png?branch=master)](http://travis-ci.org/fnichol/chef-homesick)
+# <a name="title"></a> Homesick Chef Cookbook
+
+[![Build Status](https://travis-ci.org/fnichol/chef-homesick.png?branch=master)](https://travis-ci.org/fnichol/chef-homesick)
 
 ## <a name="description"></a> Description
 
-LWRP to manage [homesick][homesick] castles.
+LWRP to manage [Homesick][homesick] castles.
 
 ## <a name="usage"></a> Usage
 
@@ -37,7 +39,7 @@ will set up the `hsolo` user's castles and not use the `wigglebottom` user.
 
 ### <a name="requirements-chef"></a> Chef
 
-Tested on 10.12.0 but newer and older version should work just fine.
+Tested on 11.4.4 but newer and older version should work just fine.
 File an [issue][issues] if this isn't the case.
 
 ### <a name="requirements-platform"></a> Platform
@@ -65,64 +67,67 @@ this cookbook. All the methods listed below assume a tagged version release
 is the target, but omit the tags to get the head of development. A valid
 Chef repository structure like the [Opscode repo][chef_repo] is also assumed.
 
-## From the Opscode Community Platform
+### <a name="installation-site"></a> From the Opscode Community Site
 
-To install this cookbook from the Opscode platform, use the *knife* command:
+To install this cookbook from the Community Site, use the *knife* command:
 
     knife cookbook site install homesick
+
+### <a name="installation-berkshelf"></a> Using Berkshelf
+
+[Berkshelf][berkshelf] is a cookbook dependency manager and development
+workflow assistant. To install Berkshelf:
+
+    cd chef-repo
+    gem install berkshelf
+    berks init
+
+To use the Community Site version:
+
+    echo "cookbook 'homesick'" >> Berksfile
+    berks install
+
+Or to reference the Git version:
+
+    repo="fnichol/chef-homesick"
+    latest_release=$(curl -s https://api.github.com/repos/$repo/git/refs/tags \
+    | ruby -rjson -e '
+      j = JSON.parse(STDIN.read);
+      puts j.map { |t| t["ref"].split("/").last }.sort.last
+    ')
+    cat >> Berksfile <<END_OF_BERKSFILE
+    cookbook 'homesick',
+      :git => 'git://github.com/$repo.git', :branch => '$latest_release'
+    END_OF_BERKSFILE
+    berks install
 
 ### <a name="installation-librarian"></a> Using Librarian-Chef
 
 [Librarian-Chef][librarian] is a bundler for your Chef cookbooks.
-Include a reference to the cookbook in a [Cheffile][cheffile] and run
-`librarian-chef install`. To install Librarian-Chef:
+To install Librarian-Chef:
 
-    gem install librarian
     cd chef-repo
+    gem install librarian
     librarian-chef init
 
-To use the Opscode platform version:
+To use the Community Site version:
 
     echo "cookbook 'homesick'" >> Cheffile
     librarian-chef install
 
 Or to reference the Git version:
 
+    repo="fnichol/chef-homesick"
+    latest_release=$(curl -s https://api.github.com/repos/$repo/git/refs/tags \
+    | ruby -rjson -e '
+      j = JSON.parse(STDIN.read);
+      puts j.map { |t| t["ref"].split("/").last }.sort.last
+    ')
     cat >> Cheffile <<END_OF_CHEFFILE
     cookbook 'homesick',
-      :git => 'git://github.com/fnichol/chef-homesick.git', :ref => 'v0.3.2'
+      :git => 'git://github.com/$repo.git', :ref => '$latest_release'
     END_OF_CHEFFILE
     librarian-chef install
-
-### <a name="installation-kgc"></a> Using knife-github-cookbooks
-
-The [knife-github-cookbooks][kgc] gem is a plugin for *knife* that supports
-installing cookbooks directly from a GitHub repository. To install with the
-plugin:
-
-    gem install knife-github-cookbooks
-    cd chef-repo
-    knife cookbook github install fnichol/chef-homesick/v0.3.2
-
-### <a name="installation-tarball"></a> As a Tarball
-
-If the cookbook needs to downloaded temporarily just to be uploaded to a Chef
-Server or Opscode Hosted Chef, then a tarball installation might fit the bill:
-
-    cd chef-repo/cookbooks
-    curl -Ls https://github.com/fnichol/chef-homesick/tarball/v0.3.2 | tar xfz - && \
-      mv fnichol-chef-homesick-* homesick
-
-### <a name="installation-gitsubmodule"></a> As a Git Submodule
-
-A dated practice (which is discouraged) is to add cookbooks as Git
-submodules. This is accomplishes like so:
-
-    cd chef-repo
-    git submodule add git://github.com/fnichol/chef-homesick.git cookbooks/homesick
-    git submodule init && git submodule update
-
-**Note:** the head of development will be linked here, not a tagged release.
 
 ## <a name="recipes"></a> Recipes
 
@@ -259,13 +264,12 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
+[berkshelf]:    http://berkshelf.com/
 [chef_repo]:    https://github.com/opscode/chef-repo
 [cheffile]:     https://github.com/applicationsonline/librarian/blob/master/lib/librarian/chef/templates/Cheffile
+[git_cb]:       http://community.opscode.com/cookbooks/git
 [homesick]:     https://github.com/technicalpickles/homesick
-[kgc]:          https://github.com/websterclay/knife-github-cookbooks#readme
 [librarian]:    https://github.com/applicationsonline/librarian#readme
-[rvm]:          http://rvm.beginrescueend.com
-[rvm_cb]:       https://github.com/fnichol/chef-rvm
 
 [fnichol]:      https://github.com/fnichol
 [repo]:         https://github.com/fnichol/chef-homesick
