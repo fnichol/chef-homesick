@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
-gem_package 'homesick' do
-  version '0.7.0'
+include_recipe "git"
+
+chef_gem 'homesick' do
+  version node['homesick']['gem_version'] if node['homesick']['gem_version']
 end

@@ -57,8 +57,9 @@ Please [report][issues] any additional platforms so they can be added.
 
 ### <a name="requirements-cookbooks"></a> Cookbooks
 
-There are **no** external cookbook dependencies. If you are using [RVM][rvm],
-then you should consider using the [rvm cookbook][rvm_cb].
+This cookbook depends on the following external cookbooks:
+
+* [git][git_cb]
 
 ## <a name="installation"></a> Installation
 
@@ -161,6 +162,13 @@ For example, if the users' array is stored in `node['system']['accounts']`),
 then set `node['homesick']['user_array_node_attr']` to `"system/accounts"`.
 
 The default is `"users"`.
+
+### <a name="attributes-gem-version"></a> gem_version
+
+The version of the Homesick gem to install.
+
+The default is `"~> 0.7.0"`
+(pending [upstream PR #40](https://github.com/technicalpickles/homesick/pull/40)).
 
 ## <a name="lwrps"></a> Resources and Providers
 

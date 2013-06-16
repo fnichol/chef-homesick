@@ -22,6 +22,6 @@ platforms:
     box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-5.9_provisionerless.box
 
 suites:
-- name: default
-  run_list: ["recipe[homesick]"]
-  attributes: {}
+- name: lwrps
+  run_list:
+  - recipe[test::castle]

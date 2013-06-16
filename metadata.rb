@@ -12,5 +12,7 @@ supports "mac_os_x"
 supports "openbsd"
 supports "suse"
 
+depends "git"
+
 recipe "homesick", "Processes a list of homesick castles (which is empty by default)."
 recipe "homesick::data_bag", "Fetches a list of homesick castles from a data bag item and appends it to the `node['homesick']['castles']` attribute for processing."

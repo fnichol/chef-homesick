@@ -21,3 +21,5 @@
 
 default['homesick']['data_bag_name']        = "users"
 default['homesick']['user_array_node_attr'] = "users"
+
+default['homesick']['gem_version'] = '~> 0.7.0'
