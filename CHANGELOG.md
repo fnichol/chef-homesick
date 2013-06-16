@@ -1,4 +1,16 @@
-## 0.3.3 / Unreleased
+## 0.4.0 / 2013-06-16
+
+### Upstream changes
+
+* Pull request #2: Pin homesick gem to 0.7.0 release. (@smdahlen)
+
+### Improvements
+
+* Add git cookbook as a dependency (Homesick gem relies on git binary). (@fnichol)
+* Create gem_version attribute. (@fnichol)
+* Install Homesick gem with chef_gem resource. (@fnichol)
+* Updates to README and CHANGELOG. (@fnichol)
+* Add Test Kitchen support with basic LWRP test. (@fnichol)
 
 
 ## 0.3.2 / 2012-08-1

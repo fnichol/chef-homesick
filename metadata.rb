@@ -4,7 +4,7 @@ name             "homesick"
 license          "Apache 2.0"
 description      "Chef library cookbook to manage Homesick castle repositories"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "0.3.3"
+version          "0.4.0"
 
 supports "ubuntu"
 supports "debian"
