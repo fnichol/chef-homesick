@@ -1,0 +1,353 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Chef-homesick by fnichol</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Chef-homesick</h1>
+        <p class="header">Chef library cookbook to manage Homesick castle repositories.</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/fnichol/chef-homesick/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/fnichol/chef-homesick/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/fnichol/chef-homesick">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/fnichol">fnichol</a></p>
+
+
+      </header>
+      <section>
+        <p><a href="https://travis-ci.org/fnichol/chef-homesick"><img src="https://travis-ci.org/fnichol/chef-homesick.png?branch=master" alt="Build Status"></a></p>
+
+<h2>
+<a name="-description" class="anchor" href="#-description"><span class="octicon octicon-link"></span></a><a name="description"></a> Description</h2>
+
+<p>Chef library cookbook to manage <a href="https://github.com/technicalpickles/homesick">Homesick</a> castle repositories.</p>
+
+<h2>
+<a name="-usage" class="anchor" href="#-usage"><span class="octicon octicon-link"></span></a><a name="usage"></a> Usage</h2>
+
+<p>Simply include <code>recipe[homesick]</code> in your run_list and the <code>homesick_repo</code>
+resource will be available.</p>
+
+<p>To use <code>recipe[homesick::data_bag]</code>, include it in your run_list and have a
+data bag called <code>"users"</code> with an item for your user like the following:</p>
+
+<pre><code>{
+  "id"  : "wigglebottom",
+  "homesick_castles"  : [
+    { "name"    : "dotvim",
+      "source"  : "git://github.com/fnichol/dotvim.git"
+    },
+    { "name"    : "dotfiles",
+      "source"  : "git://github.com/fnichol/dotfiles.git",
+      "action"  : "update"
+    }
+  ]
+}
+</code></pre>
+
+<p>The data bag recipe will iterate through a list of usernames defined in
+<code>node['users']</code> and attempt to pull in the homesick information from the data
+bag item. In other words, having:</p>
+
+<pre><code>node['users'] = ['hsolo']
+</code></pre>
+
+<p>will set up the <code>hsolo</code> user's castles and not use the <code>wigglebottom</code> user.</p>
+
+<h2>
+<a name="-requirements" class="anchor" href="#-requirements"><span class="octicon octicon-link"></span></a><a name="requirements"></a> Requirements</h2>
+
+<h3>
+<a name="-chef" class="anchor" href="#-chef"><span class="octicon octicon-link"></span></a><a name="requirements-chef"></a> Chef</h3>
+
+<p>Tested on 11.4.4 but newer and older version should work just fine.
+File an <a href="https://github.com/fnichol/chef-homesick/issues">issue</a> if this isn't the case.</p>
+
+<h3>
+<a name="-platform" class="anchor" href="#-platform"><span class="octicon octicon-link"></span></a><a name="requirements-platform"></a> Platform</h3>
+
+<p>The following platforms have been tested with this cookbook, meaning that the
+recipes run on these platforms without error:</p>
+
+<ul>
+<li>ubuntu</li>
+<li>debian</li>
+<li>centos</li>
+<li>scientific</li>
+<li>mac_os_x</li>
+<li>suse</li>
+<li>openbsd</li>
+</ul><p>Please <a href="https://github.com/fnichol/chef-homesick/issues">report</a> any additional platforms so they can be added.</p>
+
+<h3>
+<a name="-cookbooks" class="anchor" href="#-cookbooks"><span class="octicon octicon-link"></span></a><a name="requirements-cookbooks"></a> Cookbooks</h3>
+
+<p>This cookbook depends on the following external cookbooks:</p>
+
+<ul>
+<li><a href="http://community.opscode.com/cookbooks/git">git</a></li>
+</ul><h2>
+<a name="-installation" class="anchor" href="#-installation"><span class="octicon octicon-link"></span></a><a name="installation"></a> Installation</h2>
+
+<p>Depending on the situation and use case there are several ways to install
+this cookbook. All the methods listed below assume a tagged version release
+is the target, but omit the tags to get the head of development. A valid
+Chef repository structure like the <a href="https://github.com/opscode/chef-repo">Opscode repo</a> is also assumed.</p>
+
+<h3>
+<a name="-from-the-opscode-community-site" class="anchor" href="#-from-the-opscode-community-site"><span class="octicon octicon-link"></span></a><a name="installation-site"></a> From the Opscode Community Site</h3>
+
+<p>To install this cookbook from the Community Site, use the <em>knife</em> command:</p>
+
+<pre><code>knife cookbook site install homesick
+</code></pre>
+
+<h3>
+<a name="-using-berkshelf" class="anchor" href="#-using-berkshelf"><span class="octicon octicon-link"></span></a><a name="installation-berkshelf"></a> Using Berkshelf</h3>
+
+<p><a href="http://berkshelf.com/">Berkshelf</a> is a cookbook dependency manager and development
+workflow assistant. To install Berkshelf:</p>
+
+<pre><code>cd chef-repo
+gem install berkshelf
+berks init
+</code></pre>
+
+<p>To use the Community Site version:</p>
+
+<pre><code>echo "cookbook 'homesick'" &gt;&gt; Berksfile
+berks install
+</code></pre>
+
+<p>Or to reference the Git version:</p>
+
+<pre><code>repo="fnichol/chef-homesick"
+latest_release=$(curl -s https://api.github.com/repos/$repo/git/refs/tags \
+| ruby -rjson -e '
+  j = JSON.parse(STDIN.read);
+  puts j.map { |t| t["ref"].split("/").last }.sort.last
+')
+cat &gt;&gt; Berksfile &lt;&lt;END_OF_BERKSFILE
+cookbook 'homesick',
+  :git =&gt; 'git://github.com/$repo.git', :branch =&gt; '$latest_release'
+END_OF_BERKSFILE
+berks install
+</code></pre>
+
+<h3>
+<a name="-using-librarian-chef" class="anchor" href="#-using-librarian-chef"><span class="octicon octicon-link"></span></a><a name="installation-librarian"></a> Using Librarian-Chef</h3>
+
+<p><a href="https://github.com/applicationsonline/librarian#readme">Librarian-Chef</a> is a bundler for your Chef cookbooks.
+To install Librarian-Chef:</p>
+
+<pre><code>cd chef-repo
+gem install librarian
+librarian-chef init
+</code></pre>
+
+<p>To use the Community Site version:</p>
+
+<pre><code>echo "cookbook 'homesick'" &gt;&gt; Cheffile
+librarian-chef install
+</code></pre>
+
+<p>Or to reference the Git version:</p>
+
+<pre><code>repo="fnichol/chef-homesick"
+latest_release=$(curl -s https://api.github.com/repos/$repo/git/refs/tags \
+| ruby -rjson -e '
+  j = JSON.parse(STDIN.read);
+  puts j.map { |t| t["ref"].split("/").last }.sort.last
+')
+cat &gt;&gt; Cheffile &lt;&lt;END_OF_CHEFFILE
+cookbook 'homesick',
+  :git =&gt; 'git://github.com/$repo.git', :ref =&gt; '$latest_release'
+END_OF_CHEFFILE
+librarian-chef install
+</code></pre>
+
+<h2>
+<a name="-recipes" class="anchor" href="#-recipes"><span class="octicon octicon-link"></span></a><a name="recipes"></a> Recipes</h2>
+
+<h3>
+<a name="-default" class="anchor" href="#-default"><span class="octicon octicon-link"></span></a><a name="recipes-default"></a> default</h3>
+
+<p>This recipe is a no-op and does nothing.</p>
+
+<p>Use this recipe when you only want access to the <code>homesick_castle</code> LWRP.</p>
+
+<h3>
+<a name="-data_bag" class="anchor" href="#-data_bag"><span class="octicon octicon-link"></span></a><a name="recipes-data-bag"></a> data_bag</h3>
+
+<p>Fetches an list of homesick castles with data drawn from a data bag. The
+default data bag is <code>"users"</code> and the list of user accounts to iterate through
+is set on <code>node['users']</code>.</p>
+
+<p>Use this recipe when you want data bag driven data in your workflow.</p>
+
+<h2>
+<a name="-attributes" class="anchor" href="#-attributes"><span class="octicon octicon-link"></span></a><a name="attributes"></a> Attributes</h2>
+
+<h3>
+<a name="-data_bag_name" class="anchor" href="#-data_bag_name"><span class="octicon octicon-link"></span></a><a name="attributes-data-bag-name"></a> data_bag_name</h3>
+
+<p>The data bag name containing a group of user account information. This is used
+by the <code>data_bag</code> recipe to use as a database of user accounts. The default is
+<code>"users"</code>.</p>
+
+<h3>
+<a name="-user_array_node_attr" class="anchor" href="#-user_array_node_attr"><span class="octicon octicon-link"></span></a><a name="attributes-user-array-node-attr"></a> user_array_node_attr</h3>
+
+<p>The node attributes containing an array of users to be managed. If a nested
+hash in the node's attributes is required, then use a <code>/</code> between subhashes.
+For example, if the users' array is stored in <code>node['system']['accounts']</code>),
+then set <code>node['homesick']['user_array_node_attr']</code> to <code>"system/accounts"</code>.</p>
+
+<p>The default is <code>"users"</code>.</p>
+
+<h3>
+<a name="-gem_version" class="anchor" href="#-gem_version"><span class="octicon octicon-link"></span></a><a name="attributes-gem-version"></a> gem_version</h3>
+
+<p>The version of the Homesick gem to install.</p>
+
+<p>The default is <code>"~&gt; 0.7.0"</code>
+(pending <a href="https://github.com/technicalpickles/homesick/pull/40">upstream PR #40</a>).</p>
+
+<h2>
+<a name="-resources-and-providers" class="anchor" href="#-resources-and-providers"><span class="octicon octicon-link"></span></a><a name="lwrps"></a> Resources and Providers</h2>
+
+<h3>
+<a name="-homesick_castle" class="anchor" href="#-homesick_castle"><span class="octicon octicon-link"></span></a><a name="lwrps-castle"></a> homesick_castle</h3>
+
+<h3>
+<a name="-actions" class="anchor" href="#-actions"><span class="octicon octicon-link"></span></a><a name="lwrps-castle-actions"></a> Actions</h3>
+
+<table>
+<tr>
+<th>Action</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+<tr>
+<td>install</td>
+      <td>Clones the castle and symlinks it.</td>
+      <td>Yes</td>
+    </tr>
+<tr>
+<td>update</td>
+      <td>Pulls updates for the castle and re-symlinks it.</td>
+      <td> </td>
+    </tr>
+</table><h3>
+<a name="-attributes-1" class="anchor" href="#-attributes-1"><span class="octicon octicon-link"></span></a><a name="lwrps-castle-attributes"></a> Attributes</h3>
+
+<table>
+<tr>
+<th>Attribute</th>
+      <th>Description</th>
+      <th>Default Value</th>
+    </tr>
+<tr>
+<td>name</td>
+      <td>
+<b>Name attribute:</b> The name of the homesick castle.</td>
+      <td><code>nil</code></td>
+    </tr>
+<tr>
+<td>user</td>
+      <td>The user using the castle.</td>
+      <td><code>nil</code></td>
+    </tr>
+<tr>
+<td>source</td>
+      <td>The clone URL (http, https, git, etc.) of the castle.</td>
+      <td><code>nil</code></td>
+    </tr>
+</table><h4>
+<a name="-examples" class="anchor" href="#-examples"><span class="octicon octicon-link"></span></a><a name="lwrps-castle-examples"></a> Examples</h4>
+
+<h5>
+<a name="install-a-castle" class="anchor" href="#install-a-castle"><span class="octicon octicon-link"></span></a>Install a Castle</h5>
+
+<pre><code>homesick_castle 'dotvim' do
+  user    'wigglebottom
+  source  'git://github.com/fnichol/dotvim.git'
+end
+</code></pre>
+
+<p><strong>Note:</strong> the install action is the default.</p>
+
+<h5>
+<a name="pull-updates-for-a-castle" class="anchor" href="#pull-updates-for-a-castle"><span class="octicon octicon-link"></span></a>Pull Updates for a Castle</h5>
+
+<pre><code>homesick_castle 'dotfiles' do
+  user    'wigglebottom
+  source  'git://github.com/fnichol/dotfiles.git'
+  action  :update
+end
+</code></pre>
+
+<h2>
+<a name="-development" class="anchor" href="#-development"><span class="octicon octicon-link"></span></a><a name="development"></a> Development</h2>
+
+<ul>
+<li>Source hosted at <a href="https://github.com/fnichol/chef-homesick">GitHub</a>
+</li>
+<li>Report issues/Questions/Feature requests on <a href="https://github.com/fnichol/chef-homesick/issues">GitHub Issues</a>
+</li>
+</ul><p>Pull requests are very welcome! Make sure your patches are well tested.
+Ideally create a topic branch for every separate change you make.</p>
+
+<h2>
+<a name="-license-and-author" class="anchor" href="#-license-and-author"><span class="octicon octicon-link"></span></a><a name="license"></a> License and Author</h2>
+
+<p>Author:: <a href="https://github.com/fnichol">Fletcher Nichol</a> (<a href="mailto:fnichol@nichol.ca">fnichol@nichol.ca</a>) <a href="http://coderwall.com/fnichol"><img src="http://api.coderwall.com/fnichol/endorsecount.png" alt="endorse"></a></p>
+
+<p>Copyright 2011, Fletcher Nichol</p>
+
+<p>Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+
+<pre><code>http://www.apache.org/licenses/LICENSE-2.0
+</code></pre>
+
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		          <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-29670723-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
