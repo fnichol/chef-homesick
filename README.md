@@ -6,6 +6,10 @@
 
 Chef library cookbook to manage [Homesick][homesick] castle repositories.
 
+* Website: http://fnichol.github.io/chef-homesick/
+* Opscode Community Site: http://community.opscode.com/cookbooks/homesick
+* Source Code: https://github.com/fnichol/chef-homesick
+
 ## <a name="usage"></a> Usage
 
 Simply include `recipe[homesick]` in your run\_list and the `homesick_repo`
