@@ -4,7 +4,7 @@
 
 ## <a name="description"></a> Description
 
-LWRP to manage [Homesick][homesick] castles.
+Chef library cookbook to manage [Homesick][homesick] castle repositories.
 
 ## <a name="usage"></a> Usage
 
@@ -49,6 +49,8 @@ recipes run on these platforms without error:
 
 * ubuntu
 * debian
+* centos
+* scientific
 * mac\_os\_x
 * suse
 * openbsd

@@ -2,17 +2,16 @@ maintainer       "Fletcher Nichol"
 maintainer_email "fnichol@nichol.ca"
 name             "homesick"
 license          "Apache 2.0"
-description      "Installs/Configures homesick"
+description      "Chef library cookbook to manage Homesick castle repositories"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "0.3.3"
 
 supports "ubuntu"
 supports "debian"
+supports "centos"
+supports "scientific"
 supports "mac_os_x"
 supports "openbsd"
 supports "suse"
 
 depends "git"
-
-recipe "homesick", "Processes a list of homesick castles (which is empty by default)."
-recipe "homesick::data_bag", "Fetches a list of homesick castles from a data bag item and appends it to the `node['homesick']['castles']` attribute for processing."
