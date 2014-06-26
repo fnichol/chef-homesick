@@ -19,6 +19,12 @@
 
 require 'pathname'
 
+use_inline_resources if defined?(use_inline_resources)
+
+def why_run_supported?
+  true
+end
+
 def load_current_resource
   castle = castles.select{ |c| c[:name] == new_resource.castle }.first
   if castle
