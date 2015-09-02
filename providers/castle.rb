@@ -19,6 +19,12 @@
 
 require 'pathname'
 
+use_inline_resources if defined?(use_inline_resources)
+
+def why_run_supported?
+  true
+end
+
 def load_current_resource
   castle = castles.select{ |c| c[:name] == new_resource.castle }.first
   if castle
@@ -65,10 +71,11 @@ def home_dir
   @home_dir ||= Pathname.new(Etc.getpwnam(new_resource.user).dir).expand_path
 end
 
-def run(command)
+def run(cmd)
   env = { 'USER' => new_resource.user, 'HOME' => home_dir.to_s }
 
-  execute command do
+  execute "#{cmd} for #{new_resource.user}" do
+    command cmd
     user          new_resource.user
     environment   env
   end
