@@ -20,5 +20,6 @@
 include_recipe "git"
 
 chef_gem 'homesick' do
+  compile_time false if Chef::Resource::ChefGem.method_defined?(:compile_time)
   version node['homesick']['gem_version'] if node['homesick']['gem_version']
 end
